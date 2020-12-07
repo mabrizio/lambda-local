@@ -30,6 +30,14 @@ kubectl run -it \
             -- mysql -h mysql -ppassword
 ```
 
+#### Shell Access
+
+```bash
+kubectl exec --stdin \
+        --tty $(kubectl get pods -l app=mysql | grep ^mysql | awk '{print $1}') \
+	-- /bin/bash
+```
+
 ### LocalStack
 
 ```bash
