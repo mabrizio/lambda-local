@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: localstack
+spec:
+  ports:
+  - port: 4566
+  selector:
+    app: localstack
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: localstack
+spec:
+  selector:
+    matchLabels:
+      app: localstack
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: localstack
+    spec:
+      containers:
+      - image: localstack:0.12.2
+        name: localstack
+        ports:
+        - containerPort: 4566
+          name: mysql
